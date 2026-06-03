@@ -41,6 +41,9 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       touchMultiplier: 1.6,
     });
     lenisRef.current = lenis;
+    if (typeof window !== "undefined") {
+      (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+    }
     lenis.stop(); // locked until the loader finishes
 
     lenis.on("scroll", ScrollTrigger.update);
