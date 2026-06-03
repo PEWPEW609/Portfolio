@@ -1,70 +1,76 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import { intro } from "@/lib/content";
 import { ArrowUpRight } from "./icons";
+import Reveal from "./anim/Reveal";
 
 export default function Intro() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 0.85", "end 0.55"],
-  });
-
+  const para = useRef<HTMLParagraphElement>(null);
   const words = intro.body.split(" ");
 
+  // Progressive word reveal: opacity scrubs from faint to solid as the
+  // centered editorial paragraph passes through the viewport.
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const el = para.current;
+    if (!el) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        el.querySelectorAll("[data-word]"),
+        { opacity: 0.12 },
+        {
+          opacity: 1,
+          ease: "none",
+          stagger: 0.6,
+          scrollTrigger: {
+            trigger: el,
+            start: "top 78%",
+            end: "bottom 62%",
+            scrub: true,
+          },
+        }
+      );
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="bg-paper px-6 py-24 md:px-10 md:py-40">
-      <div className="mx-auto max-w-site">
-        <div className="mb-10 flex items-center gap-2 md:mb-16">
+    <section className="bg-paper px-6 py-32 md:px-10 md:py-48">
+      <div className="mx-auto max-w-4xl text-center">
+        <Reveal className="mb-10 flex items-center justify-center gap-2 md:mb-16">
           <span className="h-1.5 w-1.5 rounded-full bg-black" />
           <span className="mono-label">{intro.eyebrow}</span>
-        </div>
+        </Reveal>
 
-        <div ref={ref}>
-          <p className="max-w-[20ch] text-[8.5vw] font-medium leading-[1.05] tracking-[-0.03em] text-black sm:max-w-none sm:text-[clamp(28px,4vw,56px)]">
-            {words.map((word, i) => (
-              <Word
-                key={i}
-                progress={scrollYProgress}
-                range={[i / words.length, (i + 1) / words.length]}
-              >
+        <p
+          ref={para}
+          className="text-[clamp(23px,3.3vw,42px)] font-medium leading-[1.18] tracking-[-0.02em] text-black"
+        >
+          {words.map((word, i) => (
+            <span key={i}>
+              <span data-word className="inline-block">
                 {word}
-              </Word>
-            ))}
-          </p>
-        </div>
+              </span>{" "}
+            </span>
+          ))}
+        </p>
 
-        <div className="mt-12 md:mt-16">
+        <Reveal className="mt-14 flex justify-center md:mt-20" delay={0.05}>
           <Link
             href="/#projects"
             className="group inline-flex items-center gap-2 rounded-full bg-black px-6 py-3.5 text-white transition-colors duration-300 hover:bg-neutral-800"
+            data-cursor
           >
             <span className="mono-label text-white">Explore Projects</span>
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
-        </div>
+        </Reveal>
       </div>
     </section>
-  );
-}
-
-function Word({
-  children,
-  progress,
-  range,
-}: {
-  children: string;
-  progress: MotionValue<number>;
-  range: [number, number];
-}) {
-  const opacity = useTransform(progress, range, [0.15, 1]);
-  return (
-    <motion.span style={{ opacity }} className="inline-block">
-      {children}
-      {" "}
-    </motion.span>
   );
 }
