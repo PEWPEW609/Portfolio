@@ -31,3 +31,6 @@ next-env.d.ts
 # editor
 .vscode/
 .idea/
+
+# research scratch (original-site captures used during the clone)
+/_research
