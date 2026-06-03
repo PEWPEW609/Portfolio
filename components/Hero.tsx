@@ -30,8 +30,9 @@ export default function Hero() {
           },
         });
         tl.to(".hero-title", { scale: titleScale, yPercent: titleY, ease: "none" }, 0)
-          .to(".hero-house", { yPercent: -6, ease: "none" }, 0)
-          .to(".hero-bg", { scale: 1.18, yPercent: -5, ease: "none" }, 0)
+          // Background photo + cut-out share ONE transform so the duplicated
+          // foreground (grass exists in both layers) never separates / ghosts.
+          .to([".hero-bg", ".hero-house"], { scale: 1.1, yPercent: -4, ease: "none" }, 0)
           .to(".hero-hint", { autoAlpha: 0, ease: "none" }, 0);
       };
 
