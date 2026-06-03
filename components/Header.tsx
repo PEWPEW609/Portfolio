@@ -10,10 +10,18 @@ const easeFramer = [0.44, 0, 0.07, 1] as const;
 export default function Header() {
   const [open, setOpen] = useState(false);
 
-  // Lock body scroll while the menu overlay is open.
+  // Lock scroll (Lenis + body) while the menu overlay is open.
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    const lenis = (window as unknown as { __lenis?: { start: () => void; stop: () => void } }).__lenis;
+    if (open) {
+      lenis?.stop();
+      document.body.style.overflow = "hidden";
+    } else {
+      lenis?.start();
+      document.body.style.overflow = "";
+    }
     return () => {
+      lenis?.start();
       document.body.style.overflow = "";
     };
   }, [open]);

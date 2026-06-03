@@ -72,6 +72,26 @@ body {
   animation: ticker-scroll 28s linear infinite;
 }
 
+/* Scroll-hint arrow bob */
+@keyframes hint-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+.hero-hint-arrow {
+  animation: hint-bob 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-hint-arrow,
+  .animate-ticker {
+    animation: none;
+  }
+}
+
 /* Mono label utility used across the design */
 .mono-label {
   font-family: var(--font-mono), monospace;

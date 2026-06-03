@@ -6,10 +6,12 @@ import { gsap, prefersReducedMotion } from "@/lib/gsap";
 export default function Loader({ onComplete }: { onComplete: () => void }) {
   const root = useRef<HTMLDivElement>(null);
   const [count, setCount] = useState(0);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     if (prefersReducedMotion()) {
       onComplete();
+      setHidden(true); // no animation — remove the overlay immediately
       return;
     }
 
@@ -56,10 +58,13 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
       }, 2.2);
 
       tl.set(root.current, { display: "none" });
+      tl.call(() => setHidden(true));
     }, root);
 
     return () => ctx.revert();
   }, [onComplete]);
+
+  if (hidden) return null;
 
   return (
     <div
