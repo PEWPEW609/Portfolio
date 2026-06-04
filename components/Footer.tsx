@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="mx-auto max-w-site px-6 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t border-black/10 py-8 md:flex-row md:items-center md:justify-between md:py-10">
           <p className="mono-label text-neutral-500">
-            © 2026 Facade Architects
+            © 2026 Ian Quadros Pereira
           </p>
         </Reveal>
       </div>
