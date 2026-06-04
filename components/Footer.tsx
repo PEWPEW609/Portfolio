@@ -9,18 +9,6 @@ export default function Footer() {
           <p className="mono-label text-neutral-500">
             © 2026 Facade Architects
           </p>
-          <p className="mono-label text-neutral-500">
-            Template by{" "}
-            <a
-              href="https://www.favoritframe.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-black underline-offset-4 transition-opacity hover:opacity-60"
-              data-cursor
-            >
-              Favorit × Frame
-            </a>
-          </p>
         </Reveal>
       </div>
 
