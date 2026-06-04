@@ -92,7 +92,7 @@ export default function Hero() {
           className="hero-title-inner select-none whitespace-nowrap text-center font-semibold uppercase leading-[0.8] text-[#191919]"
           style={{ fontSize: "clamp(120px, 44vw, 780px)", letterSpacing: "-0.13em" }}
         >
-          Discover
+          Define
         </h1>
       </div>
 
