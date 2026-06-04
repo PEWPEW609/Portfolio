@@ -3,6 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
+const WORD_CLASS =
+  "select-none whitespace-nowrap text-center font-semibold uppercase leading-[0.8] text-white";
+const WORD_STYLE = {
+  fontSize: "clamp(56px, 19vw, 360px)",
+  letterSpacing: "-0.13em",
+} as const;
+
 export default function Loader({ onComplete }: { onComplete: () => void }) {
   const root = useRef<HTMLDivElement>(null);
   const [count, setCount] = useState(0);
@@ -19,35 +26,52 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
       const counter = { v: 0 };
       const tl = gsap.timeline();
 
+      // GSAP owns every transform on the words (avoids CSS/GSAP conflicts).
+      // Reveal the masked stack and park "Design" below the mask to start.
+      tl.set(".loader-words", { autoAlpha: 1 }, 0);
+      tl.set(".loader-word-2", { yPercent: 120 }, 0);
+
       // Count 000 -> 100
       tl.to(counter, {
         v: 100,
-        duration: 1.7,
+        duration: 2.2,
         ease: "power2.inOut",
         onUpdate: () => setCount(Math.round(counter.v)),
       }, 0);
 
-      // Wordmark rises into view
-      tl.from(".loader-word", {
-        yPercent: 120,
-        duration: 1.1,
-        ease: "expo.out",
-      }, 0.15);
-
       // Progress line draws across
       tl.fromTo(".loader-bar", { scaleX: 0 }, {
         scaleX: 1,
-        duration: 1.7,
+        duration: 2.2,
         ease: "power2.inOut",
       }, 0);
 
-      // Meta + word exit upward, then the curtain lifts to reveal the page.
-      tl.to([".loader-word", ".loader-meta"], {
+      // "Discover" rises into view
+      tl.from(".loader-word-1", {
+        yPercent: 120,
+        duration: 1.0,
+        ease: "expo.out",
+      }, 0.15);
+
+      // Swap: "Discover" slides up out, "Design" slides up in
+      tl.to(".loader-word-1", {
+        yPercent: -120,
+        duration: 0.7,
+        ease: "power3.inOut",
+      }, 1.3);
+      tl.to(".loader-word-2", {
+        yPercent: 0,
+        duration: 0.8,
+        ease: "expo.out",
+      }, 1.35);
+
+      // "Design" + meta exit upward, then the curtain lifts to reveal the page.
+      tl.to([".loader-word-2", ".loader-meta"], {
         yPercent: -120,
         duration: 0.7,
         ease: "power3.in",
         stagger: 0.04,
-      }, 2.0);
+      }, 2.7);
 
       tl.to(root.current, {
         yPercent: -100,
@@ -55,7 +79,7 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
         ease: "power4.inOut",
         // Release scroll + trigger hero reveal as the curtain starts lifting.
         onStart: onComplete,
-      }, 2.2);
+      }, 2.9);
 
       tl.set(root.current, { display: "none" });
       tl.call(() => setHidden(true));
@@ -78,12 +102,16 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
         </span>
       </div>
 
-      <div className="overflow-hidden">
+      {/* Masked word stack: Discover → Design (opacity-0 until GSAP reveals) */}
+      <div className="loader-words relative overflow-hidden opacity-0">
+        <h1 className={`loader-word-1 ${WORD_CLASS}`} style={WORD_STYLE}>
+          Discover
+        </h1>
         <h1
-          className="loader-word select-none text-center font-semibold uppercase leading-[0.8] text-white"
-          style={{ fontSize: "clamp(80px, 26vw, 460px)", letterSpacing: "-0.13em" }}
+          className={`loader-word-2 ${WORD_CLASS} absolute inset-0`}
+          style={WORD_STYLE}
         >
-          Facade
+          Design
         </h1>
       </div>
 
