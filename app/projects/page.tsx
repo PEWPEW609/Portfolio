@@ -3,7 +3,6 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FramerBadge from "@/components/FramerBadge";
 import { projects } from "@/lib/content";
 import { ArrowUpRight } from "@/components/icons";
 
@@ -64,7 +63,6 @@ export default function ProjectsPage() {
       </section>
 
       <Footer />
-      <FramerBadge />
     </main>
   );
 }

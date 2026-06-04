@@ -6,7 +6,6 @@ import Ticker from "@/components/Ticker";
 import Publication from "@/components/Publication";
 import PublicationsTable from "@/components/PublicationsTable";
 import Footer from "@/components/Footer";
-import FramerBadge from "@/components/FramerBadge";
 
 export default function Home() {
   return (
@@ -19,7 +18,6 @@ export default function Home() {
       <Publication />
       <PublicationsTable />
       <Footer />
-      <FramerBadge />
     </main>
   );
 }
