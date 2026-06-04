@@ -40,7 +40,7 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
       // Count 000 -> 100
       tl.to(counter, {
         v: 100,
-        duration: 2.2,
+        duration: 2.6,
         ease: "power2.inOut",
         onUpdate: () => setCount(Math.round(counter.v)),
       }, 0);
@@ -48,36 +48,38 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
       // Progress line draws across
       tl.fromTo(".loader-bar", { scaleX: 0 }, {
         scaleX: 1,
-        duration: 2.2,
+        duration: 2.6,
         ease: "power2.inOut",
       }, 0);
 
-      // "Discover" rises into view
+      // 1. "Discover" rises in and holds
       tl.from(".loader-word-1", {
         yPercent: 120,
-        duration: 1.0,
-        ease: "expo.out",
-      }, 0.15);
-
-      // Swap: "Discover" slides up out, "Design" slides up in
-      tl.to(".loader-word-1", {
-        yPercent: -120,
-        duration: 0.7,
-        ease: "power3.inOut",
-      }, 1.3);
-      tl.to(".loader-word-2", {
-        yPercent: 0,
         duration: 0.8,
         ease: "expo.out",
-      }, 1.35);
+      }, 0.2);
+
+      // 2. "Discover" fully slides up and clears the mask...
+      tl.to(".loader-word-1", {
+        yPercent: -120,
+        duration: 0.55,
+        ease: "power3.inOut",
+      }, 1.4);
+
+      // 3. ...only THEN does "Design" rise in (sequential, never overlapping)
+      tl.to(".loader-word-2", {
+        yPercent: 0,
+        duration: 0.65,
+        ease: "expo.out",
+      }, 1.95);
 
       // "Design" + meta exit upward, then the curtain lifts to reveal the page.
       tl.to([".loader-word-2", ".loader-meta"], {
         yPercent: -120,
-        duration: 0.7,
+        duration: 0.6,
         ease: "power3.in",
         stagger: 0.04,
-      }, 2.7);
+      }, 3.0);
 
       tl.to(root.current, {
         yPercent: -100,
@@ -85,7 +87,7 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
         ease: "power4.inOut",
         // Release scroll + trigger hero reveal as the curtain starts lifting.
         onStart: () => onCompleteRef.current(),
-      }, 2.9);
+      }, 3.2);
 
       tl.set(root.current, { display: "none" });
       tl.call(() => setHidden(true));
