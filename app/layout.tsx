@@ -19,12 +19,12 @@ const martianMono = Martian_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FF Architect — Portfolio Template",
+  title: "Ian Pereira — Portfolio Template",
   description:
     "Facade Architects — a prestigious architectural firm crafting highly personalized homes where minimalism meets functionality.",
   metadataBase: new URL("https://ff-architect.example.com"),
   openGraph: {
-    title: "FF Architect — Portfolio Template",
+    title: "Ian Pereira — Portfolio Template",
     description:
       "Facade Architects — crafting highly personalized homes where minimalism meets functionality.",
     type: "website",

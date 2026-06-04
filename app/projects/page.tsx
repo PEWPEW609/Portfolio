@@ -7,7 +7,7 @@ import { projects } from "@/lib/content";
 import { ArrowUpRight } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "Projects — FF Architect",
+  title: "Projects — Ian Pereira",
 };
 
 export default function ProjectsPage() {

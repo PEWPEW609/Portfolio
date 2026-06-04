@@ -43,7 +43,7 @@ export default function Header() {
               className="text-[15px] font-medium tracking-tight md:text-base"
               onClick={() => setOpen(false)}
             >
-              FF Architect
+              Ian Pereira
             </Link>
             <button
               type="button"

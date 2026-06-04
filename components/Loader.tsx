@@ -72,7 +72,7 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
       className="fixed inset-0 z-[100] flex flex-col justify-between bg-black px-6 py-6 text-white md:px-10 md:py-8"
     >
       <div className="flex items-center justify-between">
-        <span className="loader-meta mono-label text-white/60">FF Architect</span>
+        <span className="loader-meta mono-label text-white/60">Ian Pereira</span>
         <span className="loader-meta mono-label text-white/60">
           {String(count).padStart(3, "0")}
         </span>
