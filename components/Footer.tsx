@@ -18,7 +18,7 @@ export default function Footer() {
           className="select-none text-center font-semibold uppercase leading-[0.78] tracking-tightest text-black"
           style={{ fontSize: "clamp(80px, 29vw, 600px)", letterSpacing: "-0.13em" }}
         >
-          Facade
+          Define
         </h2>
       </Reveal>
     </footer>
