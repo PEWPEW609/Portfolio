@@ -36,26 +36,17 @@ export const projects: Project[] = [
 
 export type Publication = {
   title: string;
-  author: string;
-  publisher: string;
   year: string;
 };
 
 export const publications: Publication[] = [
-  { title: "From City to Detail", author: "Wilfried Wang", publisher: "The Architecture Foundation", year: "1998" },
-  { title: "Beyond Modernity", author: "Samantha Turner", publisher: "GreenBuild Publications", year: "1999" },
-  { title: "Sustainable Heights", author: "Michael Thompson", publisher: "Heritage Architecture Books", year: "2001" },
-  { title: "Reviving History", author: "Emily Collins", publisher: "FuturArch Publishing", year: "2004" },
-  { title: "Techno-Visions", author: "Alexander Hughes", publisher: "LandArch Books", year: "2005" },
-  { title: "Harmony in Design", author: "Olivia Turner", publisher: "GreenCity Press", year: "2007" },
-  { title: "Eco-Urbanism", author: "Ethan Reed", publisher: "Universal Design Publications", year: "2009" },
-  { title: "Inclusive Spaces", author: "Sophia Davis", publisher: "Modern Architecture Magazine", year: "2012" },
-  { title: "Suburban Revamp", author: "Max Fischer", publisher: "Suburban Architecture Review", year: "2015" },
-  { title: "Materiality Unleashed", author: "Emma Reynolds", publisher: "Materiality Books", year: "2017" },
-  { title: "Computational Design", author: "Jacob Bennett", publisher: "Roma Publications", year: "2019" },
-  { title: "Cultural Convergence", author: "Ava Campbell", publisher: "World Architecture Journal", year: "2021" },
-  { title: "Industrial Heritage", author: "Liam Mitchell", publisher: "Industrial Architecture Press", year: "2023" },
-  { title: "The Facade Catalogue", author: "Henry Franklin", publisher: "Self-Published", year: "2023" },
+  { title: "From City to Detail", year: "1998" },
+  { title: "Beyond Modernity", year: "1999" },
+  { title: "Sustainable Heights", year: "2001" },
+  { title: "Reviving History", year: "2004" },
+  { title: "Techno-Visions", year: "2005" },
+  { title: "Harmony in Design", year: "2007" },
+  { title: "Eco-Urbanism", year: "2009" },
 ];
 
 export const intro = {

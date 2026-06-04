@@ -7,10 +7,8 @@ export default function PublicationsTable() {
     <section className="bg-paper px-6 pb-28 md:px-10 md:pb-40">
       <div className="mx-auto max-w-site">
         {/* Header row */}
-        <Reveal className="grid grid-cols-[1fr_auto] items-center gap-4 border-b border-black pb-4 md:grid-cols-[1.7fr_1.1fr_1.3fr_0.5fr_40px]">
+        <Reveal className="grid grid-cols-[1fr_auto] items-center gap-4 border-b border-black pb-4 md:grid-cols-[1fr_auto_40px]">
           <span className="mono-label text-neutral-500">Title</span>
-          <span className="mono-label hidden text-neutral-500 md:block">Author</span>
-          <span className="mono-label hidden text-neutral-500 md:block">Publisher</span>
           <span className="mono-label text-right text-neutral-500 md:text-left">Year</span>
           <span className="hidden md:block" />
         </Reveal>
@@ -23,7 +21,7 @@ export default function PublicationsTable() {
                 href="https://favoritframe.lemonsqueezy.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group grid grid-cols-[1fr_auto] items-center gap-4 border-b border-black/10 py-5 transition-colors duration-300 hover:bg-black hover:text-white md:grid-cols-[1.7fr_1.1fr_1.3fr_0.5fr_40px] md:py-6"
+                className="group grid grid-cols-[1fr_auto] items-center gap-4 border-b border-black/10 py-5 transition-colors duration-300 hover:bg-black hover:text-white md:grid-cols-[1fr_auto_40px] md:py-6"
                 data-cursor
               >
                 <span className="flex items-center gap-3 text-lg font-medium tracking-tight md:text-[22px]">
@@ -31,12 +29,6 @@ export default function PublicationsTable() {
                   <span className="-ml-7 transition-all duration-300 group-hover:ml-0">
                     {pub.title}
                   </span>
-                </span>
-                <span className="mono-label hidden text-neutral-500 group-hover:text-white/70 md:block">
-                  {pub.author}
-                </span>
-                <span className="mono-label hidden text-neutral-500 group-hover:text-white/70 md:block">
-                  {pub.publisher}
                 </span>
                 <span className="mono-label text-right text-neutral-500 group-hover:text-white/70 md:text-left">
                   {pub.year}
