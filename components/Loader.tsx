@@ -15,9 +15,15 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
   const [count, setCount] = useState(0);
   const [hidden, setHidden] = useState(false);
 
+  // Hold the latest onComplete in a ref so the intro effect runs exactly once.
+  // The parent passes a fresh callback when `loaded` flips; depending on it
+  // would re-run the effect mid-animation and replay the whole loader.
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
+
   useEffect(() => {
     if (prefersReducedMotion()) {
-      onComplete();
+      onCompleteRef.current();
       setHidden(true); // no animation — remove the overlay immediately
       return;
     }
@@ -78,7 +84,7 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
         duration: 1.0,
         ease: "power4.inOut",
         // Release scroll + trigger hero reveal as the curtain starts lifting.
-        onStart: onComplete,
+        onStart: () => onCompleteRef.current(),
       }, 2.9);
 
       tl.set(root.current, { display: "none" });
@@ -86,7 +92,9 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
     }, root);
 
     return () => ctx.revert();
-  }, [onComplete]);
+    // Run once on mount — onComplete is read through a ref (see above).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (hidden) return null;
 
