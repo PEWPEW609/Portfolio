@@ -60,5 +60,5 @@ export const publications: Publication[] = [
 
 export const intro = {
   eyebrow: "Hi, I'm Ian",
-  body: "Welcome to Facade Architects, a prestigious architectural firm based in Auckland. We specialize in crafting highly personalized homes where minimalism meets functionality. With a keen eye for detail and a commitment to innovative design, we create residences that reflect the unique visions and lifestyles of our clients. At Facade Architects, we believe that architecture should not only be aesthetically pleasing but also enhance the way people live. Whether it’s a sleek urban retreat or a serene countryside residence, our team of talented professionals is dedicated to delivering exceptional architectural solutions tailored to your needs.",
+  body: "I'm an Interior Architect & Designer focused on creating meaningful spaces that balance functionality, emotion, and aesthetics. My work explores how thoughtful design can shape the way people experience and interact with their environments. With a strong attention to detail and a passion for materiality, form, and human centred design, I develop interiors that are both purposeful and memorable. From residential and hospitality spaces to conceptual explorations, each project is approached with curiosity, creativity, and a commitment to crafting experiences that feel authentic and enduring.",
 };
