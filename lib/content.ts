@@ -59,6 +59,6 @@ export const publications: Publication[] = [
 ];
 
 export const intro = {
-  eyebrow: "We are Facade",
+  eyebrow: "Hi, I'm Ian",
   body: "Welcome to Facade Architects, a prestigious architectural firm based in Auckland. We specialize in crafting highly personalized homes where minimalism meets functionality. With a keen eye for detail and a commitment to innovative design, we create residences that reflect the unique visions and lifestyles of our clients. At Facade Architects, we believe that architecture should not only be aesthetically pleasing but also enhance the way people live. Whether it’s a sleek urban retreat or a serene countryside residence, our team of talented professionals is dedicated to delivering exceptional architectural solutions tailored to your needs.",
 };
