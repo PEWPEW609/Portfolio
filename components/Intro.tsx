@@ -14,7 +14,7 @@ export default function Intro() {
           <MaskReveal className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-100">
             <Image
               src={intro.image}
-              alt="Interior architecture by Ian Pereira"
+              alt="Portrait of Ian Pereira"
               fill
               sizes="(max-width: 768px) 90vw, 440px"
               className="object-cover grayscale"
