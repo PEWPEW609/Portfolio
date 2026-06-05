@@ -50,6 +50,11 @@ export const publications: Publication[] = [
 ];
 
 export const intro = {
-  eyebrow: "Hi, I'm Ian",
-  body: "I'm an Interior Architect & Designer focused on creating meaningful spaces that balance functionality, emotion, and aesthetics. My work explores how thoughtful design can shape the way people experience and interact with their environments. With a strong attention to detail and a passion for materiality, form, and human centred design, I develop interiors that are both purposeful and memorable. From residential and hospitality spaces to conceptual explorations, each project is approached with curiosity, creativity, and a commitment to crafting experiences that feel authentic and enduring.",
+  label: "About",
+  cta: "Explore Projects",
+  image: "/images/project-sandstone.jpg",
+  paragraphs: [
+    "I'm an Interior Architect & Designer focused on creating meaningful spaces that balance functionality, emotion, and aesthetics. My work explores how thoughtful design can shape the way people experience and interact with their environments.",
+    "With a strong attention to detail and a passion for materiality, form, and human centred design, I develop interiors that are both purposeful and memorable. From residential and hospitality spaces to conceptual explorations, each project is approached with curiosity, creativity, and a commitment to crafting experiences that feel authentic and enduring.",
+  ],
 };

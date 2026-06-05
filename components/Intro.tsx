@@ -1,75 +1,58 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import { intro } from "@/lib/content";
 import { ArrowUpRight } from "./icons";
 import Reveal from "./anim/Reveal";
+import MaskReveal from "./anim/MaskReveal";
 
 export default function Intro() {
-  const para = useRef<HTMLParagraphElement>(null);
-  const words = intro.body.split(" ");
-
-  // Progressive word reveal: opacity scrubs from faint to solid as the
-  // centered editorial paragraph passes through the viewport.
-  useEffect(() => {
-    if (prefersReducedMotion()) return;
-    const el = para.current;
-    if (!el) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el.querySelectorAll("[data-word]"),
-        { opacity: 0.12 },
-        {
-          opacity: 1,
-          ease: "none",
-          stagger: 0.6,
-          scrollTrigger: {
-            trigger: el,
-            start: "top 78%",
-            end: "bottom 62%",
-            scrub: true,
-          },
-        }
-      );
-    }, el);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section className="bg-paper px-6 py-32 md:px-10 md:py-48">
-      <div className="mx-auto max-w-4xl text-center">
-        <Reveal className="mb-10 flex items-center justify-center gap-2 md:mb-16">
-          <span className="h-1.5 w-1.5 rounded-full bg-black" />
-          <span className="mono-label">{intro.eyebrow}</span>
-        </Reveal>
+    <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
+      <div className="mx-auto max-w-site">
+        {/* Centered feature image */}
+        <div className="mx-auto w-full max-w-[440px]">
+          <MaskReveal className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-100">
+            <Image
+              src={intro.image}
+              alt="Interior architecture by Ian Pereira"
+              fill
+              sizes="(max-width: 768px) 90vw, 440px"
+              className="object-cover grayscale"
+            />
+          </MaskReveal>
+        </div>
 
-        <p
-          ref={para}
-          className="text-[clamp(23px,3.3vw,42px)] font-medium leading-[1.18] tracking-[-0.02em] text-black"
-        >
-          {words.map((word, i) => (
-            <span key={i}>
-              <span data-word className="inline-block">
-                {word}
-              </span>{" "}
-            </span>
-          ))}
-        </p>
-
-        <Reveal className="mt-14 flex justify-center md:mt-20" delay={0.05}>
+        {/* Label row + divider */}
+        <Reveal className="mt-12 flex items-end justify-between gap-4 border-b border-black/20 pb-5 md:mt-20">
+          <span className="mono-label text-black">{intro.label}</span>
           <Link
             href="/#projects"
-            className="group inline-flex items-center gap-2 rounded-full bg-black px-6 py-3.5 text-white transition-colors duration-300 hover:bg-neutral-800"
+            className="group inline-flex items-center gap-1.5"
             data-cursor
           >
-            <span className="mono-label text-white">Explore Projects</span>
-            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <span className="mono-label text-black transition-opacity duration-300 group-hover:opacity-60">
+              {intro.cta}
+            </span>
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </Reveal>
+
+        {/* Body copy — offset to the right column */}
+        <div className="mt-10 grid grid-cols-1 md:mt-14 md:grid-cols-12">
+          <div className="space-y-5 md:col-span-6 md:col-start-7">
+            {intro.paragraphs.map((paragraph, i) => (
+              <Reveal
+                as="p"
+                key={i}
+                y={20}
+                delay={i * 0.06}
+                className="text-[clamp(17px,1.5vw,21px)] leading-[1.5] tracking-[-0.01em] text-black"
+              >
+                {paragraph}
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
