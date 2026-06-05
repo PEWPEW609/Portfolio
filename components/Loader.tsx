@@ -103,6 +103,7 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
   return (
     <div
       ref={root}
+      data-loader
       className="fixed inset-0 z-[100] flex flex-col justify-between bg-black px-6 py-6 text-white md:px-10 md:py-8"
     >
       <div className="flex items-center justify-between">
