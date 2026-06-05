@@ -62,7 +62,8 @@ function imgLuminanceAt(img: HTMLImageElement, x: number, y: number): number | n
   const sy = Math.min(c.sh - 1, Math.max(0, Math.round(fy * c.sh)));
   const d = c.ctx.getImageData(sx, sy, 1, 1).data;
   if (d[3] < 12) return null; // transparent pixel → keep looking behind
-  return 0.299 * d[0] + 0.587 * d[1] + 0.114 * d[2];
+  // Any (opaque) photograph keeps the nav white, regardless of its brightness.
+  return 0;
 }
 
 function colorLuminance(bg: string): number | null {
@@ -120,9 +121,7 @@ export default function Header() {
 
   // Recolour the nav based on the background behind it.
   useEffect(() => {
-    let raf = 0;
     const compute = () => {
-      raf = 0;
       const y = 30;
       const w = window.innerWidth;
       let sum = 0;
@@ -136,19 +135,31 @@ export default function Header() {
       }
       if (n > 0) setDark(sum / n < 140); // dark background → keep text white
     };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(compute);
+    // Lenis doesn't emit native scroll events (and can even be paused), so
+    // poll the scroll position each frame and recompute only when it changes.
+    let raf = 0;
+    let lastY = -1;
+    let lastW = -1;
+    const tick = () => {
+      const y = window.scrollY;
+      const w = window.innerWidth;
+      if (y !== lastY || w !== lastW) {
+        lastY = y;
+        lastW = w;
+        compute();
+      }
+      raf = requestAnimationFrame(tick);
     };
     compute();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    raf = requestAnimationFrame(tick);
+    // Photos decode after first paint — recompute as each image loads.
+    document.addEventListener("load", compute, true);
     // Re-check once fonts / pinned layout / images have settled.
-    const t1 = setTimeout(compute, 500);
-    const t2 = setTimeout(compute, 1600);
+    const t1 = setTimeout(compute, 600);
+    const t2 = setTimeout(compute, 1800);
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(raf);
+      document.removeEventListener("load", compute, true);
       clearTimeout(t1);
       clearTimeout(t2);
     };
